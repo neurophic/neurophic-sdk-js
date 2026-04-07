@@ -18,30 +18,28 @@
       }
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsdown",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist"
   },
   "peerDependencies": {
-    "ai": ">=3.0.0",
+    "ai": ">=6.0.0",
     "neurophic": "workspace:^",
-    "zod": ">=3.0.0"
+    "zod": ">=4.0.0"
   },
   "devDependencies": {
-    "ai": "^4.0.0",
+    "ai": "^6.0.149",
     "neurophic": "workspace:^",
     "tsdown": "^0.21.0",
     "typescript": "^5.5.0",
-    "zod": "^3.23.0"
+    "zod": "^4.3.6"
   },
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/neurophic/neurophic-sdk-js.git",
-    "directory": "packages/ai-sdk"
-  },
+  "repository": "github:neurophic/neurophic-sdk-js",
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
@@ -49,5 +47,12 @@
   "engines": {
     "node": ">=20"
   },
-  "keywords": ["neurophic", "memory", "ai", "vercel", "ai-sdk", "tools"]
+  "keywords": [
+    "neurophic",
+    "memory",
+    "ai",
+    "vercel",
+    "ai-sdk",
+    "tools"
+  ]
 }
