@@ -6,10 +6,7 @@ const DEFAULT_TEMPLATE = (context: string, system?: string) => {
 	return system ? `${system}\n\n${contextBlock}` : contextBlock;
 };
 
-export async function withContext(
-	client: Neurophic,
-	options: WithContextOptions,
-): Promise<string> {
+export async function withContext(client: Neurophic, options: WithContextOptions): Promise<string> {
 	const { identifier, query, system, template = DEFAULT_TEMPLATE } = options;
 
 	const { result } = await client.context({ identifier, query });

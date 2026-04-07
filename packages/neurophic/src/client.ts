@@ -42,10 +42,7 @@ export class Neurophic {
 		return this.post(`/${API_VERSION}/context`, request, options);
 	}
 
-	async retrieve(
-		request: RetrieveRequest,
-		options?: RequestOptions,
-	): Promise<RetrieveResponse> {
+	async retrieve(request: RetrieveRequest, options?: RequestOptions): Promise<RetrieveResponse> {
 		return this.post(`/${API_VERSION}/retrieve`, request, options);
 	}
 
