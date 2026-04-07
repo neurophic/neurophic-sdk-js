@@ -1,2 +1,4 @@
+export { withContext } from "./context";
 export { createTools } from "./tools";
-export type { NeurophicToolOptions } from "./types";
+
+export type { NeurophicToolOptions, WithContextOptions } from "./types";
