@@ -1,7 +1,8 @@
 import { NeurophicError } from "./error";
 import type {
+	ContextRequest,
+	ContextResponse,
 	IngestRequest,
-	IngestResponse,
 	NeurophicOptions,
 	RequestOptions,
 	RetrieveRequest,
@@ -33,11 +34,18 @@ export class Neurophic {
 		this.timeout = options.timeout ?? DEFAULT_TIMEOUT;
 	}
 
-	async ingest(request: IngestRequest, options?: RequestOptions): Promise<IngestResponse> {
-		return this.post(`/${API_VERSION}/ingest`, request, options);
+	async ingest(request: IngestRequest, options?: RequestOptions): Promise<void> {
+		await this.post(`/${API_VERSION}/ingest`, request, options);
 	}
 
-	async retrieve(request: RetrieveRequest, options?: RequestOptions): Promise<RetrieveResponse> {
+	async context(request: ContextRequest, options?: RequestOptions): Promise<ContextResponse> {
+		return this.post(`/${API_VERSION}/context`, request, options);
+	}
+
+	async retrieve(
+		request: RetrieveRequest,
+		options?: RequestOptions,
+	): Promise<RetrieveResponse> {
 		return this.post(`/${API_VERSION}/retrieve`, request, options);
 	}
 
@@ -55,6 +63,10 @@ export class Neurophic {
 
 		if (!response.ok) {
 			throw await NeurophicError.fromResponse(response);
+		}
+
+		if (response.status === 204) {
+			return undefined as T;
 		}
 
 		return (await response.json()) as T;

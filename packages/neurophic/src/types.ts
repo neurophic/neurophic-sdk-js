@@ -11,34 +11,26 @@ export interface RequestOptions {
 export interface IngestRequest {
 	identifier: string;
 	content: string;
+	metadata?: Record<string, unknown>;
 }
 
-export interface IngestResponse {
-	status: string;
+export interface ContextRequest {
+	identifier: string;
+	query: string;
+}
+
+export interface ContextResponse {
+	result: string;
 }
 
 export interface RetrieveRequest {
 	identifier: string;
 	query: string;
+	goal?: string;
+	since?: string;
 	limit?: number;
 }
 
-export interface Memory {
-	content: string;
-	claimType: string;
-	relevance: number;
-	causedBy: string[];
-	leadTo: string[];
-	isPattern: boolean;
-	confidence?: number;
-}
-
-export interface Observation {
-	content: string;
-	relevance: number;
-}
-
 export interface RetrieveResponse {
-	memories: Memory[];
-	observations: Observation[];
+	result: string;
 }
