@@ -1,6 +1,6 @@
 {
   "name": "@neurophic/ai-sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Vercel AI SDK tools for Neurophic memory",
   "type": "module",
   "main": "./dist/index.cjs",

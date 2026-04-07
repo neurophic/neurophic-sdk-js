@@ -1,6 +1,6 @@
 {
   "name": "neurophic",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "TypeScript client for the Neurophic API",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -32,11 +32,7 @@
     "typescript": "^5.5.0"
   },
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/neurophic/neurophic-sdk-js.git",
-    "directory": "packages/neurophic"
-  },
+  "repository": "github:neurophic/neurophic-sdk-js",
   "sideEffects": false,
   "engines": {
     "node": ">=20"
