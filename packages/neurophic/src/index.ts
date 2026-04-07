@@ -1,11 +1,11 @@
 export { Neurophic } from "./client";
 export { NeurophicError } from "./error";
+
 export type {
+	ContextRequest,
+	ContextResponse,
 	IngestRequest,
-	IngestResponse,
-	Memory,
 	NeurophicOptions,
-	Observation,
 	RequestOptions,
 	RetrieveRequest,
 	RetrieveResponse,
