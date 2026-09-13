@@ -11,6 +11,9 @@ importers:
       '@biomejs/biome':
         specifier: ^2.4.9
         version: 2.4.9
+      '@types/node':
+        specifier: ^25.5.0
+        version: 25.5.0
       tsdown:
         specifier: ^0.21.0
         version: 0.21.7(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(typescript@5.9.3)

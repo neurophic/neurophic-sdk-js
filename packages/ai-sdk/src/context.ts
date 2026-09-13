@@ -9,7 +9,12 @@ const DEFAULT_TEMPLATE = (context: string, system?: string) => {
 export async function withContext(client: Neurophic, options: WithContextOptions): Promise<string> {
 	const { identifier, query, system, template = DEFAULT_TEMPLATE } = options;
 
-	const { result } = await client.context({ identifier, query });
+	let result: string;
+	try {
+		({ result } = await client.context({ identifier, query }));
+	} catch {
+		return system ?? "";
+	}
 
 	if (!result) {
 		return system ?? "";
