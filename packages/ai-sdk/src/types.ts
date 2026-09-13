@@ -2,11 +2,12 @@ import type { Neurophic } from "neurophic";
 
 export interface NeurophicToolOptions {
 	client: Neurophic;
-	identifier: string;
+	identifier?: string;
+	name?: string;
 }
 
 export interface WithContextOptions {
-	identifier: string;
+	identifier?: string;
 	query: string;
 	system?: string;
 	template?: (context: string, system?: string) => string;
