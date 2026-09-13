@@ -1,6 +1,6 @@
 {
   "name": "neurophic",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "TypeScript client for the Neurophic API",
   "type": "module",
   "main": "./dist/index.cjs",
