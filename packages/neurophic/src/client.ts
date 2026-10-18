@@ -33,15 +33,23 @@ export class Neurophic {
 	private readonly timeout: number;
 
 	readonly memory = {
-		list: (
-			request: ListMemoriesRequest = {},
-			options?: RequestOptions,
-		): Promise<ListMemoriesResponse> =>
-			this.request("POST", `/${API_VERSION}/memories/list`, { body: request }, options),
+		list: (request: ListMemoriesRequest, options?: RequestOptions): Promise<ListMemoriesResponse> =>
+			this.request(
+				"GET",
+				`/${API_VERSION}/memories`,
+				{
+					query: {
+						identifier: request.identifier,
+						page: request.page === undefined ? undefined : String(request.page),
+						perPage: request.perPage === undefined ? undefined : String(request.perPage),
+					},
+				},
+				options,
+			),
 
 		get: (
 			id: string,
-			request: GetMemoryRequest = {},
+			request: GetMemoryRequest,
 			options?: RequestOptions,
 		): Promise<MemorySummary> =>
 			this.request(
@@ -51,11 +59,7 @@ export class Neurophic {
 				options,
 			),
 
-		delete: (
-			id: string,
-			request: DeleteMemoryRequest = {},
-			options?: RequestOptions,
-		): Promise<void> =>
+		delete: (id: string, request: DeleteMemoryRequest, options?: RequestOptions): Promise<void> =>
 			this.request(
 				"DELETE",
 				`/${API_VERSION}/memories/${encodeURIComponent(id)}`,

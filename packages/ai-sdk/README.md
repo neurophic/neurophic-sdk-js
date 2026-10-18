@@ -44,6 +44,8 @@ Searches long-term memory for relevant information.
 
 Parameters:
 - `query` (string) — What to search for
+- `goal` (string, optional) — Current goal, used to rank relevance
+- `since` (string, optional) — ISO 8601 date; only memories after it
 - `limit` (number, optional) — Max results (1-20)
 
 ## License
