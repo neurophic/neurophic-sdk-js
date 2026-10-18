@@ -22,8 +22,8 @@ await client.ingest({
   content: "Loves hiking and photography",
 });
 
-// Retrieve memories
-const { memories, observations } = await client.retrieve({
+// Retrieve memories, as markdown
+const { result } = await client.retrieve({
   identifier: "user-123",
   query: "hobbies",
 });

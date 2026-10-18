@@ -15,7 +15,7 @@ export interface IngestMetadata {
 }
 
 export interface IngestRequest {
-	identifier?: string;
+	identifier: string;
 	name?: string;
 	content: string;
 	metadata?: IngestMetadata;
@@ -27,7 +27,7 @@ export interface IngestResponse {
 }
 
 export interface ContextRequest {
-	identifier?: string;
+	identifier: string;
 	query: string;
 }
 
@@ -38,7 +38,7 @@ export interface ContextResponse {
 export type RetrieveFormat = "markdown" | "json";
 
 export interface RetrieveRequest {
-	identifier?: string;
+	identifier: string;
 	query: string;
 	goal?: string;
 	since?: string;
@@ -77,7 +77,7 @@ export interface RetrieveStructuredResponse {
 }
 
 export interface ListMemoriesRequest {
-	identifier?: string;
+	identifier: string;
 	page?: number;
 	perPage?: number;
 }
@@ -97,11 +97,11 @@ export interface ListMemoriesResponse {
 }
 
 export interface GetMemoryRequest {
-	identifier?: string;
+	identifier: string;
 }
 
 export interface DeleteMemoryRequest {
-	identifier?: string;
+	identifier: string;
 	restorePrevious?: boolean;
 }
 
