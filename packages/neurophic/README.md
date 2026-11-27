@@ -22,10 +22,34 @@ await client.ingest({
   content: "Loves hiking and photography",
 });
 
+// Backfill history: say when it was said, oldest first
+await client.ingest({
+  identifier: "user-123",
+  content: "Moved to Bath last month",
+  occurredAt: "2026-03-14T10:30:00Z",
+});
+
+// Store what your agent said, so it can pick up where it left off
+await client.ingest({
+  identifier: "user-123",
+  content: "Suggested the Cotswold Way for a first long hike",
+  role: "assistant",
+});
+
 // Retrieve memories, as markdown
 const { result } = await client.retrieve({
   identifier: "user-123",
   query: "hobbies",
+});
+
+// Structured results: memories, observations, patterns and the original turns, reranked before the cut
+const { result: results } = await client.retrieve({
+  identifier: "user-123",
+  query: "what instruments do I play",
+  format: "json",
+  roles: ["user", "assistant"],
+  sources: true,
+  rerank: "fast",
 });
 ```
 

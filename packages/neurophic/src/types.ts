@@ -8,16 +8,25 @@ export interface RequestOptions {
 	signal?: AbortSignal;
 }
 
+/** @deprecated Accepted and ignored since 0.5.0: `topic` no longer affects patterns. */
 export type MemoryTopic = "work" | "personal";
 
+/** @deprecated Accepted and ignored since 0.5.0: `topic` no longer affects patterns. */
 export interface IngestMetadata {
 	topic?: MemoryTopic;
 }
+
+export type MemoryRole = "user" | "assistant";
+
+export type RerankMode = "none" | "fast" | "thorough";
 
 export interface IngestRequest {
 	identifier: string;
 	name?: string;
 	content: string;
+	occurredAt?: string | Date;
+	role?: MemoryRole;
+	/** @deprecated Accepted and ignored since 0.5.0: `topic` no longer affects patterns. */
 	metadata?: IngestMetadata;
 }
 
@@ -29,6 +38,9 @@ export interface IngestResponse {
 export interface ContextRequest {
 	identifier: string;
 	query: string;
+	roles?: MemoryRole[];
+	sources?: boolean;
+	rerank?: RerankMode;
 }
 
 export interface ContextResponse {
@@ -41,9 +53,14 @@ export interface RetrieveRequest {
 	identifier: string;
 	query: string;
 	goal?: string;
-	since?: string;
+	since?: string | Date;
+	until?: string | Date;
+	roles?: MemoryRole[];
 	limit?: number;
+	referenceDate?: string | Date;
 	format?: RetrieveFormat;
+	sources?: boolean;
+	rerank?: RerankMode;
 }
 
 export interface RetrieveResponse {
@@ -51,28 +68,50 @@ export interface RetrieveResponse {
 }
 
 export interface RetrievedMemory {
-	id?: string;
+	id: string;
 	content: string;
 	claimType: string;
-	relevance: number;
+	relevance?: number;
 	causedBy: string[];
 	leadTo: string[];
-	isPattern: boolean;
-	confidence?: number;
 	createdAt: string;
+	occurredAt: string;
+	eventDate?: string;
+	role: MemoryRole;
+	sourceId?: string;
 }
 
 export interface RetrievedObservation {
 	id: string;
 	content: string;
-	relevance: number;
+	relevance?: number;
 	createdAt: string;
+	occurredAt: string;
+	role: MemoryRole;
+}
+
+export interface RetrievedPattern {
+	content: string;
+	claimType: string;
+	confidence: number;
+	relevance?: number;
+	createdAt: string;
+	updatedAt: string;
+}
+
+export interface RetrievedSource {
+	id: string;
+	role: MemoryRole;
+	content: string;
+	occurredAt: string;
 }
 
 export interface RetrieveStructuredResponse {
 	result: {
 		memories: RetrievedMemory[];
 		observations: RetrievedObservation[];
+		patterns: RetrievedPattern[];
+		sources: RetrievedSource[];
 	};
 }
 
