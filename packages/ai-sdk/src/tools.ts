@@ -2,25 +2,18 @@ import { tool } from "ai";
 import { z } from "zod";
 import type { NeurophicToolOptions } from "./types";
 
+const isoDate = () => z.iso.datetime({ offset: true }).or(z.iso.date());
+
 export function createTools(options: NeurophicToolOptions) {
-	const { client, identifier, name } = options;
+	const { client, identifier, name, search } = options;
 
 	const remember = tool({
 		description: "Store information in long-term memory. Writes are queued, not stored instantly.",
 		inputSchema: z.object({
 			content: z.string().min(1).max(10_000).describe("The information to remember"),
-			topic: z
-				.enum(["work", "personal"])
-				.optional()
-				.describe("Optional topic used to categorise the memory"),
 		}),
-		execute: async ({ content, topic }) => {
-			const { id, status } = await client.ingest({
-				identifier,
-				name,
-				content,
-				metadata: topic ? { topic } : undefined,
-			});
+		execute: async ({ content }) => {
+			const { id, status } = await client.ingest({ identifier, name, content });
 			return { success: true, id, status };
 		},
 	});
@@ -34,21 +27,18 @@ export function createTools(options: NeurophicToolOptions) {
 				.max(500)
 				.optional()
 				.describe("Current goal or intent to influence relevance ranking"),
-			since: z.iso
-				.datetime({ offset: true })
-				.or(z.iso.date())
-				.optional()
-				.describe("ISO 8601 date — only return memories after this date"),
+			since: isoDate().optional().describe("ISO 8601 date — only return memories after this date"),
+			until: isoDate().optional().describe("ISO 8601 date — only return memories before this date"),
 			limit: z
 				.number()
 				.int()
 				.min(1)
 				.max(20)
 				.optional()
-				.describe("Maximum number of results (default 5)"),
+				.describe("Maximum number of results (default 10)"),
 		}),
-		execute: async ({ query, goal, since, limit }) => {
-			return client.retrieve({ identifier, query, goal, since, limit });
+		execute: async ({ query, goal, since, until, limit }) => {
+			return client.retrieve({ identifier, query, goal, since, until, limit, ...search });
 		},
 	});
 
